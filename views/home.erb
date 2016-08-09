@@ -38,7 +38,7 @@
 </head>
 
 <body class="poetry">
-  <h1> Volatoris: </h1>
+  <h1> <%= @acrostic ? @acrostic.capitalize : "Volatoris" %>: </h1>
 
 <ul class="poem">
   <% @poem.each do |line| %>
