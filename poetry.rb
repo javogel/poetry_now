@@ -1,7 +1,7 @@
 require 'sinatra'
 require 'httparty'
-require 'sinatra/reloader'
-require 'pry'
+# require 'sinatra/reloader'
+
 
 get '/hi' do
 
