@@ -39,7 +39,7 @@ def get_poetry(acrostic = "volatoris")
 
 
           if condition
-            final_poem << line
+            final_poem << [line, poem['author']]
           end
 
           # binding.pry

@@ -42,7 +42,7 @@
 
 <ul class="poem">
   <% @poem.each do |line| %>
-  <li> <span class="first-letter"> <%= line[0] %></span><%= line[1..-1] %> </li>
+  <li title="<%= line[1] %>"> <span class="first-letter"> <%= line[0][0] %></span><%= line[0][1..-1] %> </li>
   <% end %>
 
 </ul>
