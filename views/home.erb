@@ -1,6 +1,50 @@
-<h1> Random Poem: </h1>
 
 
-<% @poem.each do |line| %>
-<p> <%= line %> </p>
-<% end %>
+<head>
+
+<link href="https://fonts.googleapis.com/css?family=Cardo|Quattrocento+Sans" rel="stylesheet">
+  <style>
+
+
+  .poetry {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+  }
+
+  h1 {
+    font-family: 'Cardo', serif;
+  }
+
+
+  .poem {
+    list-style: none;
+    font-family: 'Quattrocento Sans', sans-serif;
+  }
+
+  .poem li {
+    margin: 5px 0;
+  }
+
+  .first-letter {
+    color: red;
+  }
+
+  </style>
+
+</head>
+
+<body class="poetry">
+  <h1> Volatoris: </h1>
+
+<ul class="poem">
+  <% @poem.each do |line| %>
+  <li> <span class="first-letter"> <%= line[0] %></span><%= line[1..-1] %> </li>
+  <% end %>
+
+</ul>
+
+</body>
