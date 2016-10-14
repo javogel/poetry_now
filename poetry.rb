@@ -17,7 +17,7 @@ end
 get '/infinite' do
   all_starting_lines = starting_random_poem
 
-  @poem = all_starting_lines.slice!(0,15)
+  @poem = all_starting_lines.slice!(0,35)
   gon.starting_buffer_of_poetry = all_starting_lines
 
   erb :infinite
