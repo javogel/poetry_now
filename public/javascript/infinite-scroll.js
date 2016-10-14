@@ -1,21 +1,34 @@
 $(document).ready(function() {
 	var win = $(window);
+	$('#loading').hide();
 
 	// Each time the user scrolls
 	win.scroll(function() {
 		// End of the document reached?
-		if ($(document).height() - win.height() == win.scrollTop()) {
-			$('#loading').show();
+    // Top
+    // $(document).height() - win.height() == win.scrollTop()
+		if (win.scrollTop() + win.height() == $(document).height()) {
+
+
+    	$('#loading').show();
 
 			$.ajax({
 				url: '/gimme_random',
 				dataType: 'json',
         crossDomain: true,
 				success: function(response) {
-					// $('#posts').append(html);
-					// $('#loading').hide();
+					$('#loading').hide();
+					var string_to_insert = "";
 
-          console.log(response);
+					response["data"].forEach(function(line){
+						console.log(line)
+						string_to_insert = '<li>'+ line.trim() + '</li>'
+						$("ul").append(string_to_insert);
+					});
+
+
+					string = '<li>'+ line.trim() + '</li>'
+					$("ul").append('<li><a href="/user/messages"><span class="tab">Message Center</span></a></li>');
 				}
 			});
 		}

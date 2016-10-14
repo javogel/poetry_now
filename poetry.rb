@@ -13,11 +13,17 @@ end
 
 get '/infinite' do
 
-  @poem = random_poem
+  @poem = starting_random_poem
   erb :infinite
 
 end
 
+get '/gimme_random' do
+
+  @poem = {data: next_fifty}
+  @poem.to_json
+
+end
 
 get '/:id' do
 
@@ -59,7 +65,7 @@ end
 
 
 
-def random_poem
+def starting_random_poem
     final_poem = []
 
     # poetry = HTTParty.get("http://poetrydb.org/author,linecount/Shakespeare;14/lines").to_a
@@ -68,6 +74,22 @@ def random_poem
 
       # binding.pry
       20.times do |x|
+            final_poem << poetry.sample["lines"].sample
+      end
+
+    final_poem
+end
+
+
+def next_fifty
+    final_poem = []
+
+    # poetry = HTTParty.get("http://poetrydb.org/author,linecount/Shakespeare;14/lines").to_a
+    poetry = HTTParty.get("http://poetrydb.org/lines/love/author,lines,linecount").to_a
+    poetry = poetry.shuffle
+
+      # binding.pry
+      50.times do |x|
             final_poem << poetry.sample["lines"].sample
       end
 
