@@ -13,10 +13,8 @@ $(document).ready(function() {
 		// End of the document reached?
 
 		// if (win.scrollTop() + win.height() == $(document).height()) {
-			$('#loading').show();
-
 			if (lines_in_store.length == 0) {
-
+				$('#loading').show();
 				if (request_initiated ==0) {
 					request_initiated = 1;
 					$.ajax({
