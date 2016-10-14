@@ -1,9 +1,10 @@
 var lines_in_store = [];
 var lines_in_store = gon.starting_buffer_of_poetry;
+var request_initiated = 0;
 
 $(document).ready(function() {
 	var win = $(window);
-
+	$('#loading').hide();
 
 	// $('#loading').hide();
 
@@ -11,34 +12,40 @@ $(document).ready(function() {
 	win.scroll(function() {
 		// End of the document reached?
 
-		if (win.scrollTop() + win.height() == $(document).height()) {
-			console.log("in scroll")
-			// $('#loading').show();
+		// if (win.scrollTop() + win.height() == $(document).height()) {
+			$('#loading').show();
+
 			if (lines_in_store.length == 0) {
-				$('#loading').show();
-				// console.log("awaiting response");
 
-				$.ajax({
-					url: '/gimme_random',
-					dataType: 'json',
-	        crossDomain: true,
-					success: function(response) {
-						// console.log("response received");
+				if (request_initiated ==0) {
+					request_initiated = 1;
+					$.ajax({
+						url: '/gimme_random',
+						dataType: 'json',
+		        crossDomain: true,
+						success: function(response) {
 
-						var string_to_insert = "";
-						lines_in_store = response["data"];
 
-						addLine();
-						addLine();
-						addLine();
-						$('#loading').hide();
-					}
-				});
+							var string_to_insert = "";
+							lines_in_store = response["data"];
+							$('#loading').hide();
+							addLine();
+							addLine();
+							addLine();
+							request_initiated = 0;
+						},
+						error: function(e) {
+							request_initiated = 0;
+						}
+					});
+				};
+
 			} else {
 				addLine();
+				$('#loading').hide();
 			}
 
-		}
+		// }
 	});
 });
 
@@ -47,5 +54,4 @@ function addLine() {
 	string_to_insert = '<li>'+ line_to_add.trim() + '</li>'
 	$("ul").append(string_to_insert);
 
-	console.log(lines_in_store.length);
 }
