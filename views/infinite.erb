@@ -1,0 +1,62 @@
+
+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css?family=Cardo" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="javascript/infinite-scroll.js"></script>
+
+
+
+<style>
+
+
+  .poetry {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+  }
+
+  h1 {
+    font-family: 'Cardo', serif;
+  }
+
+
+  .poem {
+    list-style: none;
+    font-family: 'Cardo', serif;
+  }
+
+  .poem li {
+    margin: 5px 0;
+  }
+
+  .first-letter {
+    color: red;
+  }
+
+  </style>
+
+</head>
+
+<body class="poetry">
+  <h1> The Infinite Poem</h1>
+
+  <ul class="poem">
+
+    <% @poem.each do |line| %>
+    <li ><%= line %> </li>
+    <% end %>
+
+
+
+  </ul>
+
+<p id="loading">
+	<img src="images/loading.gif" alt="Loading…" />
+</p>
+
+</body>
