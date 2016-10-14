@@ -2,7 +2,7 @@ require 'sinatra'
 # require 'sinatra/reloader'
 require 'httparty'
 require 'gon-sinatra'
-require 'pry'
+# require 'pry'
 
 Sinatra::register Gon::Sinatra
 
