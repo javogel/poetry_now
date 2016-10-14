@@ -1,36 +1,51 @@
+var lines_in_store = [];
+var lines_in_store = gon.starting_buffer_of_poetry;
+
 $(document).ready(function() {
 	var win = $(window);
-	$('#loading').hide();
+
+
+	// $('#loading').hide();
 
 	// Each time the user scrolls
 	win.scroll(function() {
 		// End of the document reached?
-    // Top
-    // $(document).height() - win.height() == win.scrollTop()
+
 		if (win.scrollTop() + win.height() == $(document).height()) {
+			console.log("in scroll")
+			// $('#loading').show();
+			if (lines_in_store.length == 0) {
+				$('#loading').show();
+				console.log("awaiting response");
 
+				$.ajax({
+					url: '/gimme_random',
+					dataType: 'json',
+	        crossDomain: true,
+					success: function(response) {
+						console.log("response received");
+						$('#loading').hide();
+						var string_to_insert = "";
+						lines_in_store = response["data"];
+				
+						addLine();
+						addLine();
+						addLine();
+						$('#loading').hide();
+					}
+				});
+			} else {
+				addLine();
+			}
 
-    	$('#loading').show();
-
-			$.ajax({
-				url: '/gimme_random',
-				dataType: 'json',
-        crossDomain: true,
-				success: function(response) {
-					$('#loading').hide();
-					var string_to_insert = "";
-
-					response["data"].forEach(function(line){
-						console.log(line)
-						string_to_insert = '<li>'+ line.trim() + '</li>'
-						$("ul").append(string_to_insert);
-					});
-
-
-					string = '<li>'+ line.trim() + '</li>'
-					$("ul").append('<li><a href="/user/messages"><span class="tab">Message Center</span></a></li>');
-				}
-			});
 		}
 	});
 });
+
+function addLine() {
+	line_to_add = lines_in_store.pop();
+	string_to_insert = '<li>'+ line_to_add.trim() + '</li>'
+	$("ul").append(string_to_insert);
+
+	console.log(lines_in_store.length);
+}

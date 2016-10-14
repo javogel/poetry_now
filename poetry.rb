@@ -1,7 +1,10 @@
 require 'sinatra'
-require 'httparty'
 require 'sinatra/reloader'
+require 'httparty'
+require 'gon-sinatra'
 require 'pry'
+
+Sinatra::register Gon::Sinatra
 
 
 get '/' do
@@ -12,15 +15,18 @@ get '/' do
 end
 
 get '/infinite' do
+  all_starting_lines = starting_random_poem
 
-  @poem = starting_random_poem
+  @poem = all_starting_lines.slice!(0,15)
+  gon.starting_buffer_of_poetry = all_starting_lines
+
   erb :infinite
 
 end
 
 get '/gimme_random' do
 
-  @poem = {data: next_fifty}
+  @poem = {data: next_two_hundred}
   @poem.to_json
 
 end
@@ -69,11 +75,11 @@ def starting_random_poem
     final_poem = []
 
     # poetry = HTTParty.get("http://poetrydb.org/author,linecount/Shakespeare;14/lines").to_a
-    poetry = HTTParty.get("http://poetrydb.org/lines/love/author,lines,linecount").to_a
+    poetry = HTTParty.get("http://poetrydb.org/lines/life/author,lines,linecount").to_a
     poetry = poetry.shuffle
 
       # binding.pry
-      20.times do |x|
+      200.times do |x|
             final_poem << poetry.sample["lines"].sample
       end
 
@@ -81,7 +87,7 @@ def starting_random_poem
 end
 
 
-def next_fifty
+def next_two_hundred
     final_poem = []
 
     # poetry = HTTParty.get("http://poetrydb.org/author,linecount/Shakespeare;14/lines").to_a
@@ -89,7 +95,7 @@ def next_fifty
     poetry = poetry.shuffle
 
       # binding.pry
-      50.times do |x|
+      200.times do |x|
             final_poem << poetry.sample["lines"].sample
       end
 

@@ -1,6 +1,8 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    gon-sinatra (0.1.2)
+      sinatra
     httparty (0.14.0)
       multi_xml (>= 0.5.2)
     multi_xml (0.5.5)
@@ -14,8 +16,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  gon-sinatra
   httparty
   sinatra (= 1.1.0)
 
 BUNDLED WITH
-   1.12.5
+   1.13.1
