@@ -14,8 +14,9 @@ $(document).ready(function() {
 
 		// if (win.scrollTop() + win.height() == $(document).height()) {
 			if (lines_in_store.length == 0) {
-				$('#loading').show();
+
 				if (request_initiated ==0) {
+					$('#loading').show();
 					request_initiated = 1;
 					$.ajax({
 						url: '/gimme_random',
@@ -32,8 +33,10 @@ $(document).ready(function() {
 							addLine();
 							request_initiated = 0;
 						},
-						error: function(e) {
+						error: function(xhr,status,error) {
+							$('#loading').hide();
 							request_initiated = 0;
+							console.log(error);
 						}
 					});
 				};
