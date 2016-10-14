@@ -16,18 +16,18 @@ $(document).ready(function() {
 			// $('#loading').show();
 			if (lines_in_store.length == 0) {
 				$('#loading').show();
-				console.log("awaiting response");
+				// console.log("awaiting response");
 
 				$.ajax({
 					url: '/gimme_random',
 					dataType: 'json',
 	        crossDomain: true,
 					success: function(response) {
-						console.log("response received");
-						$('#loading').hide();
+						// console.log("response received");
+
 						var string_to_insert = "";
 						lines_in_store = response["data"];
-				
+
 						addLine();
 						addLine();
 						addLine();

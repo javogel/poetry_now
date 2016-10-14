@@ -15,7 +15,7 @@ get '/' do
 end
 
 get '/infinite' do
-  all_starting_lines = starting_random_poem
+  all_starting_lines = next_two_hundred
 
   @poem = all_starting_lines.slice!(0,35)
   gon.starting_buffer_of_poetry = all_starting_lines
@@ -68,24 +68,6 @@ def get_poetry(acrostic = "volatoris")
     # (0..13).each { |i| poem << poetry[rand(154)]['lines'][i] }
     final_poem
 end
-
-
-
-def starting_random_poem
-    final_poem = []
-
-    # poetry = HTTParty.get("http://poetrydb.org/author,linecount/Shakespeare;14/lines").to_a
-    poetry = HTTParty.get("http://poetrydb.org/lines/life/author,lines,linecount").to_a
-    poetry = poetry.shuffle
-
-      # binding.pry
-      200.times do |x|
-            final_poem << poetry.sample["lines"].sample
-      end
-
-    final_poem
-end
-
 
 def next_two_hundred
     final_poem = []
